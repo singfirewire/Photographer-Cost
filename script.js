@@ -1,5 +1,3 @@
-// .js
-
 // script.js
 function calculateProfit() {
     // ต้นทุนหน้างาน
@@ -42,6 +40,28 @@ function calculateProfit() {
     document.getElementById('page-title').style.color = color;
 }
 
+// ฟังก์ชันสำหรับบันทึกค่าลงใน LocalStorage
+function saveInputValues() {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        localStorage.setItem(input.id, input.value);
+    });
+}
+
+// ฟังก์ชันสำหรับโหลดค่าจาก LocalStorage
+function loadInputValues() {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        const storedValue = localStorage.getItem(input.id);
+        if (storedValue) {
+            input.value = storedValue;
+        }
+    });
+}
+
+// โหลดค่าจาก LocalStorage เมื่อโหลดหน้าเว็บ
+loadInputValues();
+
 // คำนวณทันทีเมื่อโหลดหน้าเว็บ
 calculateProfit();
 
@@ -51,5 +71,8 @@ document.getElementById('calculateButton').addEventListener('click', calculatePr
 //  Event listener สำหรับ input fields ทั้งหมด
 const inputs = document.querySelectorAll('input');
 inputs.forEach(input => {
-    input.addEventListener('input', calculateProfit); 
+    input.addEventListener('input', () => {
+        calculateProfit();
+        saveInputValues(); // บันทึกค่าเมื่อมีการเปลี่ยนแปลง
+    }); 
 });
