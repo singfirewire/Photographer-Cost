@@ -1,41 +1,40 @@
 // script.js
-const express = require('express');
-const app = express();
+function calculateProfit() {
+    const photographerFee = parseFloat(document.getElementById('photographerFee').value) || 0;
+    const assistantFee = parseFloat(document.getElementById('assistantFee').value) || 0;
+    const gasCost = parseFloat(document.getElementById('gasCost').value) || 0;
+    const foodCost = parseFloat(document.getElementById('foodCost').value) || 0;
+    const otherCost = parseFloat(document.getElementById('otherCost').value) || 0;
+    const editingCost = parseFloat(document.getElementById('editingCost').value) || 0;
+    const printingCost = parseFloat(document.getElementById('printingCost').value) || 0;
+    const framingCost = parseFloat(document.getElementById('framingCost').value) || 0;
+    const jobPrice = parseFloat(document.getElementById('jobPrice').value) || 0;
 
-app.use(express.static(__dirname)); // Serve static files (HTML, CSS, etc.)
+    const totalCost = photographerFee + assistantFee + gasCost + foodCost + otherCost + editingCost + printingCost + framingCost;
+    const profit = jobPrice - totalCost;
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
+    // กำหนดสีตัวเลขตามผลกำไร/ขาดทุน
+    let color = profit >= 0 ? 'green' : 'red';
+    let extraMessage = "";
 
-app.listen(3000, () => {
-  console.log('Server listening on port 3000');
-});
-
-// **JavaScript ในไฟล์ HTML (script.js)**
-
-document.getElementById('calculateButton').addEventListener('click', () => {
-    const photographerFee = parseFloat(document.getElementById('photographerFee').value);
-    const assistantFee = parseFloat(document.getElementById('assistantFee').value);
-    const gasCost = parseFloat(document.getElementById('gasCost').value);
-    const foodCost = parseFloat(document.getElementById('foodCost').value);
-    const otherCost = parseFloat(document.getElementById('otherCost').value);
-
-    const editingCost = parseFloat(document.getElementById('editingCost').value);
-    const printingCost = parseFloat(document.getElementById('printingCost').value);
-    const framingCost = parseFloat(document.getElementById('framingCost').value);
-
-    const jobPrice = parseFloat(document.getElementById('jobPrice').value);
-
-    // ตรวจสอบเงื่อนไขค่าตัวผู้ช่วย
-    if (assistantFee > photographerFee) {
-        alert("ค่าตัวผู้ช่วยไม่สามารถเกินค่าตัวช่างภาพได้");
-        return;
+    if (profit < 0) {
+        extraMessage = " เปิดมูลนิธิถ่ายรูปหรอ?";
+    } else if (profit < 390) {
+        extraMessage = " ถ้ากำไรเท่านี้นอนเล่น Facebook อยู่บ้านเถอะ";
+    } else if (profit > 5000) {
+        extraMessage = " กำไรดีอยู่นะ มั่นใจว่ากรอบตัวเลขไม่ผิด";
     }
 
-    const totalCost1 = photographerFee + assistantFee + gasCost + foodCost + otherCost;
-    const totalCost2 = editingCost + printingCost + framingCost;
-    const profit = jobPrice - totalCost1 - totalCost2;
+    document.getElementById('profit').textContent = profit.toLocaleString('th-TH', { style: 'currency', currency: 'THB' }) + extraMessage;
+    document.getElementById('profit').style.color = color;
 
-    document.getElementById('profit').textContent = profit.toFixed(2);
-});
+    // แสดงผลกำไร ขาดทุน บนหน้าเว็บ
+    document.getElementById('page-title').textContent = `กำไรสุทธิ: ${profit.toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}`;
+    document.getElementById('page-title').style.color = color;
+}
+
+// คำนวณทันทีเมื่อโหลดหน้าเว็บ
+calculateProfit();
+
+// ยังคง event listener สำหรับปุ่มคำนวณ
+document.getElementById('calculateButton').addEventListener('click', calculateProfit);
