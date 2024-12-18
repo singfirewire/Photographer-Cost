@@ -1,62 +1,68 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>คำนวณต้นทุนกำไรช่างภาพ</title>
-    <link rel="stylesheet" href="style.css"> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คำนวณต้นทุนกำไรช่างภาพ</title>
+  <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-    <h1 id="page-title">คำนวณต้นทุนกำไรช่างภาพ</h1>
+  <h1 id="page-title">คำนวณต้นทุนกำไรช่างภาพ</h1>
 
-    <div class="section">
-        <h2>ต้นทุนหน้างาน</h2>
-        <label for="photographerFee">ค่าตัวช่างภาพ:</label>
-        <input type="number" id="photographerFee" value="1800">
+  <div class="section">
+    <h2>ต้นทุนหน้างาน</h2>
+    <label for="photographerFee">ค่าตัวช่างภาพ:</label>
+    <input type="number" id="photographerFee" value="1800">
 
-        <label for="assistantFee">ค่าตัวผู้ช่วย:</label>
-        <input type="number" id="assistantFee" value="1000" max="2000">
+    <label for="assistantFee">ค่าตัวผู้ช่วย:</label>
+    <input type="number" id="assistantFee" value="1000" max="2000">
 
-        <label for="gasCost">ค่าน้ำมัน:</label>
-        <input type="number" id="gasCost" value="200">
+    <label for="gasCost">ค่าน้ำมัน:</label>
+    <input type="number" id="gasCost" value="200">
 
-        <label for="foodCost">ค่าอาหาร/กาแฟ:</label>
-        <input type="number" id="foodCost" value="400">
+    <label for="foodCost">ค่าอาหาร/กาแฟ:</label>
+    <input type="number" id="foodCost" value="400">
 
-        <label for="otherCostFront">ค่าอื่นๆ:</label> 
-        <input type="number" id="otherCostFront" value="0">
-    </div>
+    <label for="otherCostFront">ค่าอื่นๆ:</label> 
+    <input type="number" id="otherCostFront" value="0">
+  </div>
 
-    <div class="section">
-        <h2>ต้นทุนหลังถ่าย</h2>
-        <label for="editingCost">ค่าแต่งรูป:</label>
-        <input type="number" id="editingCost" value="0">
+  <div class="section">
+    <h2>ต้นทุนหลังถ่าย</h2>
+    <label for="editingCost">ค่าแต่งรูป:</label>
+    <input type="number" id="editingCost" value="0">
 
-        <label for="printingCost">ค่าล้างรูป:</label>
-        <input type="number" id="printingCost" value="0">
+    <label for="printingCost">ค่าล้างรูป:</label>
+    <input type="number" id="printingCost" value="0">
 
-        <label for="framingCost">ค่ากรอบรูป:</label>
-        <input type="number" id="framingCost" value="0">
+    <label for="framingCost">ค่ากรอบรูป:</label>
+    <input type="number" id="framingCost" value="0">
 
-        <label for="otherCostBack">ค่าอื่นๆ:</label> 
-        <input type="number" id="otherCostBack" value="0">
-    </div>
+    <label for="otherCostBack">ค่าอื่นๆ:</label> 
+    <input type="number" id="otherCostBack" value="0">
+  </div>
 
-    <div class="section">
-        <h2>ราคารับงาน</h2>
-        <label for="jobPrice">ยอดที่ตกลง:</label>
-        <input type="number" id="jobPrice" value="0">
+  <div class="section">
+    <h2>ราคารับงาน</h2>
+    <label for="jobPrice">ยอดที่ตกลง:</label>
+    <input type="number" id="jobPrice" value="0">
 
-        <label for="tip">ทิป:</label>
-        <input type="number" id="tip" value="3500"> 
-    </div>
+    <label for="tip">ทิป:</label>
+    <input type="number" id="tip" value="3500"> 
+  </div>
 
-    <button id="calculateButton">คำนวณ</button>
+  <button id="calculateButton">คำนวณ</button>
 
-    <div id="result">
-        <h2>กำไรสุทธิ: <span id="profit"></span></h2>
-    </div>
+  <div>
+    <button id="exportButton">Export</button>
+    <input type="file" id="importFile" accept=".txt">
+    <button id="importButton">Import</button>
+  </div>
 
-    <script src="script.js"></script>
+  <div id="result">
+    <h2>กำไรสุทธิ: <span id="profit"></span></h2>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
