@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>คำนวณต้นทุนกำไรช่างภาพ</title>
-  <link rel="stylesheet" href="style.css"> 
+  <style>
+    /* เพิ่ม CSS เพื่อจัดแต่งปุ่ม export/import */
+    button.small {
+      font-size: 14px;
+      padding: 5px 10px;
+    }
+  </style>
 </head>
 <body>
   <h1 id="page-title">คำนวณต้นทุนกำไรช่างภาพ</h1>
@@ -54,9 +60,8 @@
   <button id="calculateButton">คำนวณ</button>
 
   <div>
-    <button id="exportButton">Export</button>
-    <input type="file" id="importFile" accept=".txt">
-    <button id="importButton">Import</button>
+    <button id="exportButton" class="small">Export</button>
+    <button id="importButton" class="small">Import</button>
   </div>
 
   <div id="result">
