@@ -1,4 +1,3 @@
-@@ -1,45 +1,30 @@
 // script.js
 function calculateProfit() {
     // ต้นทุนหน้างาน
