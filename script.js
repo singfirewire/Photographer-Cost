@@ -76,3 +76,56 @@ inputs.forEach(input => {
         saveInputValues(); // บันทึกค่าเมื่อมีการเปลี่ยนแปลง
     }); 
 });
+
+
+
+
+
+// ... (โค้ด event listener เหมือนเดิม) ...
+
+// ฟังก์ชันสำหรับ export ค่าเป็น .txt
+function exportData() {
+  const inputs = document.querySelectorAll('input');
+  let data = "";
+  inputs.forEach(input => {
+    data += `${input.id}: ${input.value}\n`;
+  });
+
+  const blob = new Blob([data], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'photographer-cost.txt';
+  link.click();
+}
+
+// ฟังก์ชันสำหรับ import ค่าจาก .txt
+function importData() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.txt';
+  input.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const data = event.target.result;
+      const lines = data.split('\n');
+      lines.forEach(line => {
+        const [id, value] = line.split(': ');
+        if (id) {
+          const inputElement = document.getElementById(id.trim());
+          if (inputElement) {
+            inputElement.value = value.trim();
+          }
+        }
+      });
+      calculateProfit(); // คำนวณใหม่หลังจาก import
+    }
+    reader.readAsText(file);
+  });
+  input.click();
+}
+
+// Event listener สำหรับปุ่ม export/import
+document.getElementById('exportButton').addEventListener('click', exportData);
+document.getElementById('importButton').addEventListener('click', importData);
