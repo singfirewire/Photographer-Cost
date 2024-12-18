@@ -1,23 +1,4 @@
-// script.js
-function calculateProfit() {
-    // ต้นทุนหน้างาน
-    const photographerFee = parseFloat(document.getElementById('photographerFee').value) || 0;
-    const assistantFee = parseFloat(document.getElementById('assistantFee').value) || 0;
-    const gasCost = parseFloat(document.getElementById('gasCost').value) || 0;
-    const foodCost = parseFloat(document.getElementById('foodCost').value) || 0;
-    const otherCostFront = parseFloat(document.getElementById('otherCostFront').value) || 0; 
-
-    // ต้นทุนหลังถ่าย
-    const editingCost = parseFloat(document.getElementById('editingCost').value) || 0;
-    const printingCost = parseFloat(document.getElementById('printingCost').value) || 0;
-    const framingCost = parseFloat(document.getElementById('framingCost').value) || 0;
-    const otherCostBack = parseFloat(document.getElementById('otherCostBack').value) || 0; 
-
-    // ราคารับงาน
-    const jobPrice = parseFloat(document.getElementById('jobPrice').value) || 0;
-    const tip = parseFloat(document.getElementById('tip').value) || 0; 
-
-    const totalCost = photographerFee + assistantFee + gasCost + foodCost + otherCostFront + editingCost + printingCost + framingCost + otherCostBack;
+const totalCost = photographerFee + assistantFee + gasCost + foodCost + otherCostFront + editingCost + printingCost + framingCost + otherCostBack;
     const profit = jobPrice + tip - totalCost; 
 
     // กำหนดสีตัวเลขตามผลกำไร/ขาดทุน
@@ -47,7 +28,6 @@ function saveInputValues() {
         localStorage.setItem(input.id, input.value);
     });
 }
-
 // ฟังก์ชันสำหรับโหลดค่าจาก LocalStorage
 function loadInputValues() {
     const inputs = document.querySelectorAll('input');
@@ -58,74 +38,18 @@ function loadInputValues() {
         }
     });
 }
-
 // โหลดค่าจาก LocalStorage เมื่อโหลดหน้าเว็บ
 loadInputValues();
-
 // คำนวณทันทีเมื่อโหลดหน้าเว็บ
 calculateProfit();
 
-// ยังคง event listener สำหรับปุ่มคำนวณ
-document.getElementById('calculateButton').addEventListener('click', calculateProfit);
-
+@@ -49,5 +71,8 @@
 //  Event listener สำหรับ input fields ทั้งหมด
 const inputs = document.querySelectorAll('input');
 inputs.forEach(input => {
+    input.addEventListener('input', calculateProfit); 
     input.addEventListener('input', () => {
         calculateProfit();
         saveInputValues(); // บันทึกค่าเมื่อมีการเปลี่ยนแปลง
     }); 
 });
-
-
-
-
-
-// ... (โค้ด event listener เหมือนเดิม) ...
-
-// ฟังก์ชันสำหรับ export ค่าเป็น .txt
-function exportData() {
-  const inputs = document.querySelectorAll('input');
-  let data = "";
-  inputs.forEach(input => {
-    data += `${input.id}: ${input.value}\n`;
-  });
-
-  const blob = new Blob([data], { type: 'text/plain' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'photographer-cost.txt';
-  link.click();
-}
-
-// ฟังก์ชันสำหรับ import ค่าจาก .txt
-function importData() {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = '.txt';
-  input.addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const data = event.target.result;
-      const lines = data.split('\n');
-      lines.forEach(line => {
-        const [id, value] = line.split(': ');
-        if (id) {
-          const inputElement = document.getElementById(id.trim());
-          if (inputElement) {
-            inputElement.value = value.trim();
-          }
-        }
-      });
-      calculateProfit(); // คำนวณใหม่หลังจาก import
-    }
-    reader.readAsText(file);
-  });
-  input.click();
-}
-
-// Event listener สำหรับปุ่ม export/import
-document.getElementById('exportButton').addEventListener('click', exportData);
-document.getElementById('importButton').addEventListener('click', importData);
